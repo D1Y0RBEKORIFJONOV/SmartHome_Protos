@@ -1,4 +1,4 @@
-module protos_smart_homes
+module  github.com/D1Y0RBEKORIFJONOV/SmartHome_Protos
 
 go 1.22.5
 

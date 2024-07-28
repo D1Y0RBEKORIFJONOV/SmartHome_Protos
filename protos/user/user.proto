@@ -21,8 +21,8 @@ message DeleteUserReq {
 message  GetAllUserReq {
   string filed = 1;
   string value = 2;
-  string page = 3;
-  string limit = 4;
+  int64 page = 3;
+  int64 limit = 4;
 }
 
 message GetAllUserRes  {

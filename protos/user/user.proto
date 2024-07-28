@@ -56,8 +56,13 @@ message LoginReq {
   string  password = 2;
 }
 
+message  Token {
+  string access_token  = 1;
+  string  refresh_token = 2;
+}
+
 message LoginRes {
-  string  token = 1;
+  Token tokens = 1;
 }
 
 message  StatusUser {

@@ -23,8 +23,6 @@ message  GetAllUserReq {
   string value = 2;
   string page = 3;
   string limit = 4;
-  string start_at  = 5;
-  string  end_at = 6;
 }
 
 message GetAllUserRes  {

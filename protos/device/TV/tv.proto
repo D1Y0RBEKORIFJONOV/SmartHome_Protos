@@ -36,7 +36,7 @@ message AddChannelReq {
 }
 message GetUserChannelReq {
   string  user_id = 1;
-  string current_channel = 2;
+  string channel_name = 2;
 }
 
 message DeleteChannelReq {

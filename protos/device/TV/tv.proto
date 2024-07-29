@@ -44,16 +44,18 @@ message DeleteChannelReq {
   string channel_name = 2;
 }
 message DownOrUpVVoiceTvReq {
-  bool down = 1;
-  bool up  = 2;
+  string userID = 1;
+  bool down = 2;
+  bool up  = 3;
 }
 message DownOrUpVVoiceTvRes {
   int64 sound = 1;
 }
 
 message PreviousAndNextReq {
-  bool  next = 1;
-  bool  back = 2;
+  string userID = 1;
+  bool  next = 2;
+  bool  back = 3;
 }
 
 message PreviousAndNextRes {

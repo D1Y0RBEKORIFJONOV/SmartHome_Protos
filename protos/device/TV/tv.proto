@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option go_package  = "diyorbek.tv.v1;tv1";
+
+service TVService {
+  rpc AddTV(AddTVReq) returns (TvStatusMessage);
+  rpc AddChannel(AddChannelReq) returns (TvStatusMessage);
+  rpc GetUserChannel(GetUserChannelReq) returns (GetUserChannelRes);
+  rpc DeleteChannel(DeleteChannelReq) returns (TvStatusMessage);
+  rpc DownOrUpVVoiceTv(DownOrUpVVoiceTvReq) returns (DownOrUpVVoiceTvRes);
+  rpc PreviousAndNext(PreviousAndNextReq) returns (PreviousAndNextRes);
+}
+
+message Channel {
+  string channel_name = 1;
+  string channel_number = 2;
+}
+
+message  GetUserChannelRes {
+  repeated Channel channels = 1;
+  int64  count = 2;
+}
+
+message AddTVReq {
+  string user_id = 1;
+  string model_name = 2;
+}
+
+message TvStatusMessage{
+  bool successfully = 1;
+}
+
+message AddChannelReq {
+  string  user_id = 1;
+  string  channel_name = 2;
+}
+message GetUserChannelReq {
+  string  user_id = 1;
+  string current_channel = 2;
+}
+
+message DeleteChannelReq {
+  string  user_id = 1;
+  string channel_name = 2;
+}
+message DownOrUpVVoiceTvReq {
+  bool down = 1;
+  bool up  = 2;
+}
+message DownOrUpVVoiceTvRes {
+  int64 sound = 1;
+}
+
+message PreviousAndNextReq {
+  bool  next = 1;
+  bool  back = 2;
+}
+
+message PreviousAndNextRes {
+  Channel channel = 1;
+}

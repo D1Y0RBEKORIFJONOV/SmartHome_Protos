@@ -25,6 +25,7 @@ const (
 	TVService_DeleteChannel_FullMethodName    = "/TVService/DeleteChannel"
 	TVService_DownOrUpVVoiceTv_FullMethodName = "/TVService/DownOrUpVVoiceTv"
 	TVService_PreviousAndNext_FullMethodName  = "/TVService/PreviousAndNext"
+	TVService_OnAndOffUserTv_FullMethodName   = "/TVService/OnAndOffUserTv"
 )
 
 // TVServiceClient is the client API for TVService service.
@@ -37,6 +38,7 @@ type TVServiceClient interface {
 	DeleteChannel(ctx context.Context, in *DeleteChannelReq, opts ...grpc.CallOption) (*TvStatusMessage, error)
 	DownOrUpVVoiceTv(ctx context.Context, in *DownOrUpVVoiceTvReq, opts ...grpc.CallOption) (*DownOrUpVVoiceTvRes, error)
 	PreviousAndNext(ctx context.Context, in *PreviousAndNextReq, opts ...grpc.CallOption) (*PreviousAndNextRes, error)
+	OnAndOffUserTv(ctx context.Context, in *OnAndOffUserTvReq, opts ...grpc.CallOption) (*OnAndOffUserTvRes, error)
 }
 
 type tVServiceClient struct {
@@ -107,6 +109,16 @@ func (c *tVServiceClient) PreviousAndNext(ctx context.Context, in *PreviousAndNe
 	return out, nil
 }
 
+func (c *tVServiceClient) OnAndOffUserTv(ctx context.Context, in *OnAndOffUserTvReq, opts ...grpc.CallOption) (*OnAndOffUserTvRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(OnAndOffUserTvRes)
+	err := c.cc.Invoke(ctx, TVService_OnAndOffUserTv_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TVServiceServer is the server API for TVService service.
 // All implementations must embed UnimplementedTVServiceServer
 // for forward compatibility
@@ -117,6 +129,7 @@ type TVServiceServer interface {
 	DeleteChannel(context.Context, *DeleteChannelReq) (*TvStatusMessage, error)
 	DownOrUpVVoiceTv(context.Context, *DownOrUpVVoiceTvReq) (*DownOrUpVVoiceTvRes, error)
 	PreviousAndNext(context.Context, *PreviousAndNextReq) (*PreviousAndNextRes, error)
+	OnAndOffUserTv(context.Context, *OnAndOffUserTvReq) (*OnAndOffUserTvRes, error)
 	mustEmbedUnimplementedTVServiceServer()
 }
 
@@ -141,6 +154,9 @@ func (UnimplementedTVServiceServer) DownOrUpVVoiceTv(context.Context, *DownOrUpV
 }
 func (UnimplementedTVServiceServer) PreviousAndNext(context.Context, *PreviousAndNextReq) (*PreviousAndNextRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PreviousAndNext not implemented")
+}
+func (UnimplementedTVServiceServer) OnAndOffUserTv(context.Context, *OnAndOffUserTvReq) (*OnAndOffUserTvRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OnAndOffUserTv not implemented")
 }
 func (UnimplementedTVServiceServer) mustEmbedUnimplementedTVServiceServer() {}
 
@@ -263,6 +279,24 @@ func _TVService_PreviousAndNext_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TVService_OnAndOffUserTv_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OnAndOffUserTvReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TVServiceServer).OnAndOffUserTv(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TVService_OnAndOffUserTv_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TVServiceServer).OnAndOffUserTv(ctx, req.(*OnAndOffUserTvReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TVService_ServiceDesc is the grpc.ServiceDesc for TVService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -293,6 +327,10 @@ var TVService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PreviousAndNext",
 			Handler:    _TVService_PreviousAndNext_Handler,
+		},
+		{
+			MethodName: "OnAndOffUserTv",
+			Handler:    _TVService_OnAndOffUserTv_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

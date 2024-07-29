@@ -9,6 +9,15 @@ service TVService {
   rpc DeleteChannel(DeleteChannelReq) returns (TvStatusMessage);
   rpc DownOrUpVVoiceTv(DownOrUpVVoiceTvReq) returns (DownOrUpVVoiceTvRes);
   rpc PreviousAndNext(PreviousAndNextReq) returns (PreviousAndNextRes);
+  rpc OnAndOffUserTv(OnAndOffUserTvReq) returns (OnAndOffUserTvRes);
+}
+
+message  OnAndOffUserTvReq {
+  bool  on = 1;
+  bool  off = 2;
+}
+message OnAndOffUserTvRes {
+  string  message = 1;
 }
 
 message Channel {

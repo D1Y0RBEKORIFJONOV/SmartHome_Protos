@@ -13,8 +13,9 @@ service TVService {
 }
 
 message  OnAndOffUserTvReq {
-  bool  on = 1;
-  bool  off = 2;
+  string user_id = 1;
+  bool  on = 2;
+  bool  off = 3;
 }
 message OnAndOffUserTvRes {
   string  message = 1;

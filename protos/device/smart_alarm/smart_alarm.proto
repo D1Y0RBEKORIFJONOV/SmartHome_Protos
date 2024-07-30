@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option go_package  = "diyorbek.alarm.v1;alarm1";
+
+
+service SmartAlarmService {
+  rpc AddSmartAlarm(AddSmartAlarmReq) returns (AlarmStatusMessage);
+  rpc OpenAndCloseCurtain(OpenAndCloseCurtainReq) returns (OpenAndCloseCurtainRes);
+  rpc CreateAlarmClock(CreateAlarmClockReq) returns (AlarmStatusMessage);
+  rpc OpenAndClose(OpenAndCloseReq) returns (OpenAndCloseRes);
+}
+
+
+message AlarmStatusMessage{
+  bool successfully = 1;
+}
+
+message AddSmartAlarmReq {
+  string user_id = 1;
+  string alarm_name = 2;
+  string model_name  = 3;
+}
+
+message OpenAndCloseCurtainReq {
+  string user_id = 2;
+  bool  open = 3;
+}
+
+message  OpenAndCloseCurtainRes {
+  string  message = 1;
+}
+
+message CreateAlarmClockReq {
+  string user_id  = 1;
+  string ClockTime = 2;
+}
+
+message OpenAndCloseReq {
+  string  user_id = 1;
+  bool  open = 2;
+}
+
+message OpenAndCloseRes {
+  string  message = 1;
+}

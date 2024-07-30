@@ -8,7 +8,7 @@ service SmartAlarmService {
   rpc OpenAndCloseCurtain(OpenAndCloseCurtainReq) returns (OpenAndCloseCurtainRes);
   rpc CreateAlarmClock(CreateAlarmClockReq) returns (AlarmStatusMessage);
   rpc OpenAndClose(OpenAndCloseReq) returns (OpenAndCloseRes);
-  rpc RemainingTime(RemainingTimeReq)returns (RemainingTimRes);
+  rpc GetRemainingTime(RemainingTimeReq)returns (RemainingTimRes);
 }
 
 

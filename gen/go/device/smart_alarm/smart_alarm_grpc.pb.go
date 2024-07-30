@@ -23,7 +23,7 @@ const (
 	SmartAlarmService_OpenAndCloseCurtain_FullMethodName = "/SmartAlarmService/OpenAndCloseCurtain"
 	SmartAlarmService_CreateAlarmClock_FullMethodName    = "/SmartAlarmService/CreateAlarmClock"
 	SmartAlarmService_OpenAndClose_FullMethodName        = "/SmartAlarmService/OpenAndClose"
-	SmartAlarmService_RemainingTime_FullMethodName       = "/SmartAlarmService/RemainingTime"
+	SmartAlarmService_GetRemainingTime_FullMethodName    = "/SmartAlarmService/GetRemainingTime"
 )
 
 // SmartAlarmServiceClient is the client API for SmartAlarmService service.
@@ -34,7 +34,7 @@ type SmartAlarmServiceClient interface {
 	OpenAndCloseCurtain(ctx context.Context, in *OpenAndCloseCurtainReq, opts ...grpc.CallOption) (*OpenAndCloseCurtainRes, error)
 	CreateAlarmClock(ctx context.Context, in *CreateAlarmClockReq, opts ...grpc.CallOption) (*AlarmStatusMessage, error)
 	OpenAndClose(ctx context.Context, in *OpenAndCloseReq, opts ...grpc.CallOption) (*OpenAndCloseRes, error)
-	RemainingTime(ctx context.Context, in *RemainingTimeReq, opts ...grpc.CallOption) (*RemainingTimRes, error)
+	GetRemainingTime(ctx context.Context, in *RemainingTimeReq, opts ...grpc.CallOption) (*RemainingTimRes, error)
 }
 
 type smartAlarmServiceClient struct {
@@ -85,10 +85,10 @@ func (c *smartAlarmServiceClient) OpenAndClose(ctx context.Context, in *OpenAndC
 	return out, nil
 }
 
-func (c *smartAlarmServiceClient) RemainingTime(ctx context.Context, in *RemainingTimeReq, opts ...grpc.CallOption) (*RemainingTimRes, error) {
+func (c *smartAlarmServiceClient) GetRemainingTime(ctx context.Context, in *RemainingTimeReq, opts ...grpc.CallOption) (*RemainingTimRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(RemainingTimRes)
-	err := c.cc.Invoke(ctx, SmartAlarmService_RemainingTime_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, SmartAlarmService_GetRemainingTime_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ type SmartAlarmServiceServer interface {
 	OpenAndCloseCurtain(context.Context, *OpenAndCloseCurtainReq) (*OpenAndCloseCurtainRes, error)
 	CreateAlarmClock(context.Context, *CreateAlarmClockReq) (*AlarmStatusMessage, error)
 	OpenAndClose(context.Context, *OpenAndCloseReq) (*OpenAndCloseRes, error)
-	RemainingTime(context.Context, *RemainingTimeReq) (*RemainingTimRes, error)
+	GetRemainingTime(context.Context, *RemainingTimeReq) (*RemainingTimRes, error)
 	mustEmbedUnimplementedSmartAlarmServiceServer()
 }
 
@@ -123,8 +123,8 @@ func (UnimplementedSmartAlarmServiceServer) CreateAlarmClock(context.Context, *C
 func (UnimplementedSmartAlarmServiceServer) OpenAndClose(context.Context, *OpenAndCloseReq) (*OpenAndCloseRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OpenAndClose not implemented")
 }
-func (UnimplementedSmartAlarmServiceServer) RemainingTime(context.Context, *RemainingTimeReq) (*RemainingTimRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemainingTime not implemented")
+func (UnimplementedSmartAlarmServiceServer) GetRemainingTime(context.Context, *RemainingTimeReq) (*RemainingTimRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRemainingTime not implemented")
 }
 func (UnimplementedSmartAlarmServiceServer) mustEmbedUnimplementedSmartAlarmServiceServer() {}
 
@@ -211,20 +211,20 @@ func _SmartAlarmService_OpenAndClose_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SmartAlarmService_RemainingTime_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SmartAlarmService_GetRemainingTime_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RemainingTimeReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SmartAlarmServiceServer).RemainingTime(ctx, in)
+		return srv.(SmartAlarmServiceServer).GetRemainingTime(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SmartAlarmService_RemainingTime_FullMethodName,
+		FullMethod: SmartAlarmService_GetRemainingTime_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SmartAlarmServiceServer).RemainingTime(ctx, req.(*RemainingTimeReq))
+		return srv.(SmartAlarmServiceServer).GetRemainingTime(ctx, req.(*RemainingTimeReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -253,8 +253,8 @@ var SmartAlarmService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SmartAlarmService_OpenAndClose_Handler,
 		},
 		{
-			MethodName: "RemainingTime",
-			Handler:    _SmartAlarmService_RemainingTime_Handler,
+			MethodName: "GetRemainingTime",
+			Handler:    _SmartAlarmService_GetRemainingTime_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

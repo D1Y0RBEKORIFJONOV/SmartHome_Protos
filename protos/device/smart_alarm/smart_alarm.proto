@@ -8,8 +8,25 @@ service SmartAlarmService {
   rpc OpenAndCloseCurtain(OpenAndCloseCurtainReq) returns (OpenAndCloseCurtainRes);
   rpc CreateAlarmClock(CreateAlarmClockReq) returns (AlarmStatusMessage);
   rpc OpenAndClose(OpenAndCloseReq) returns (OpenAndCloseRes);
+  rpc RemainingTime(RemainingTimeReq)returns (RemainingTimRes);
 }
 
+
+message Alarm {
+  string alarm_time = 1;
+  string remaining_time  = 2;
+}
+
+message RemainingTimRes  {
+  repeated Alarm alarms = 1;
+  int64 count = 2;
+}
+
+
+message RemainingTimeReq {
+  string  user_id = 1;
+  string device_name = 2;
+}
 
 message AlarmStatusMessage{
   bool successfully = 1;

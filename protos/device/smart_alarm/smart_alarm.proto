@@ -34,12 +34,13 @@ message AlarmStatusMessage{
 
 message AddSmartAlarmReq {
   string user_id = 1;
-  string alarm_name = 2;
+  string device_name = 2;
   string model_name  = 3;
 }
 
 message OpenAndCloseCurtainReq {
-  string user_id = 2;
+  string user_id = 1;
+  string device_name = 2;
   bool  open = 3;
 }
 
@@ -49,12 +50,14 @@ message  OpenAndCloseCurtainRes {
 
 message CreateAlarmClockReq {
   string user_id  = 1;
-  string ClockTime = 2;
+  string device_name = 2;
+  string ClockTime = 3;
 }
 
 message OpenAndCloseReq {
   string  user_id = 1;
-  bool  open = 2;
+  string device_name = 2;
+  bool  open = 3;
 }
 
 message OpenAndCloseRes {

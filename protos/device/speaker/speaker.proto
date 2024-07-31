@@ -8,7 +8,7 @@ service SpeakerService {
   rpc GetUserChannel(GetUserChannelReqS) returns (GetUserChannelResS);
   rpc DeleteChannel(DeleteChannelReqS) returns (SpeakerStatusMessage);
   rpc DownOrUpVolume(DownOrUpVolumeReqS) returns (DownOrUpVolumeResS);
-  rpc PreviousAndNext(PreviousAndNextReqS) returns (PreviousAndNextRes);
+  rpc PreviousAndNext(PreviousAndNextReqS) returns (PreviousAndNextResS);
   rpc OnAndOffUserSpeaker(OnAndOffUserSpeakerReq) returns (OnAndOffUserSpeakerRes);
 }
 
@@ -68,6 +68,6 @@ message PreviousAndNextReqS {
   bool back = 3;
 }
 
-message PreviousAndNextRes {
+message PreviousAndNextResS {
   ChannelS channel = 1;
 }

@@ -37,7 +37,7 @@ type SpeakerServiceClient interface {
 	GetUserChannel(ctx context.Context, in *GetUserChannelReqS, opts ...grpc.CallOption) (*GetUserChannelResS, error)
 	DeleteChannel(ctx context.Context, in *DeleteChannelReqS, opts ...grpc.CallOption) (*SpeakerStatusMessage, error)
 	DownOrUpVolume(ctx context.Context, in *DownOrUpVolumeReqS, opts ...grpc.CallOption) (*DownOrUpVolumeResS, error)
-	PreviousAndNext(ctx context.Context, in *PreviousAndNextReqS, opts ...grpc.CallOption) (*PreviousAndNextRes, error)
+	PreviousAndNext(ctx context.Context, in *PreviousAndNextReqS, opts ...grpc.CallOption) (*PreviousAndNextResS, error)
 	OnAndOffUserSpeaker(ctx context.Context, in *OnAndOffUserSpeakerReq, opts ...grpc.CallOption) (*OnAndOffUserSpeakerRes, error)
 }
 
@@ -99,9 +99,9 @@ func (c *speakerServiceClient) DownOrUpVolume(ctx context.Context, in *DownOrUpV
 	return out, nil
 }
 
-func (c *speakerServiceClient) PreviousAndNext(ctx context.Context, in *PreviousAndNextReqS, opts ...grpc.CallOption) (*PreviousAndNextRes, error) {
+func (c *speakerServiceClient) PreviousAndNext(ctx context.Context, in *PreviousAndNextReqS, opts ...grpc.CallOption) (*PreviousAndNextResS, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PreviousAndNextRes)
+	out := new(PreviousAndNextResS)
 	err := c.cc.Invoke(ctx, SpeakerService_PreviousAndNext_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -128,7 +128,7 @@ type SpeakerServiceServer interface {
 	GetUserChannel(context.Context, *GetUserChannelReqS) (*GetUserChannelResS, error)
 	DeleteChannel(context.Context, *DeleteChannelReqS) (*SpeakerStatusMessage, error)
 	DownOrUpVolume(context.Context, *DownOrUpVolumeReqS) (*DownOrUpVolumeResS, error)
-	PreviousAndNext(context.Context, *PreviousAndNextReqS) (*PreviousAndNextRes, error)
+	PreviousAndNext(context.Context, *PreviousAndNextReqS) (*PreviousAndNextResS, error)
 	OnAndOffUserSpeaker(context.Context, *OnAndOffUserSpeakerReq) (*OnAndOffUserSpeakerRes, error)
 	mustEmbedUnimplementedSpeakerServiceServer()
 }
@@ -152,7 +152,7 @@ func (UnimplementedSpeakerServiceServer) DeleteChannel(context.Context, *DeleteC
 func (UnimplementedSpeakerServiceServer) DownOrUpVolume(context.Context, *DownOrUpVolumeReqS) (*DownOrUpVolumeResS, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DownOrUpVolume not implemented")
 }
-func (UnimplementedSpeakerServiceServer) PreviousAndNext(context.Context, *PreviousAndNextReqS) (*PreviousAndNextRes, error) {
+func (UnimplementedSpeakerServiceServer) PreviousAndNext(context.Context, *PreviousAndNextReqS) (*PreviousAndNextResS, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PreviousAndNext not implemented")
 }
 func (UnimplementedSpeakerServiceServer) OnAndOffUserSpeaker(context.Context, *OnAndOffUserSpeakerReq) (*OnAndOffUserSpeakerRes, error) {

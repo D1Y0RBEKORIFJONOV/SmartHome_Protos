@@ -33,11 +33,11 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SpeakerServiceClient interface {
 	AddSpeaker(ctx context.Context, in *AddSpeakerReq, opts ...grpc.CallOption) (*SpeakerStatusMessage, error)
-	AddChannel(ctx context.Context, in *AddChannelReq, opts ...grpc.CallOption) (*SpeakerStatusMessage, error)
-	GetUserChannel(ctx context.Context, in *GetUserChannelReq, opts ...grpc.CallOption) (*GetUserChannelRes, error)
-	DeleteChannel(ctx context.Context, in *DeleteChannelReq, opts ...grpc.CallOption) (*SpeakerStatusMessage, error)
-	DownOrUpVolume(ctx context.Context, in *DownOrUpVolumeReq, opts ...grpc.CallOption) (*DownOrUpVolumeRes, error)
-	PreviousAndNext(ctx context.Context, in *PreviousAndNextReq, opts ...grpc.CallOption) (*PreviousAndNextRes, error)
+	AddChannel(ctx context.Context, in *AddChannelReqS, opts ...grpc.CallOption) (*SpeakerStatusMessage, error)
+	GetUserChannel(ctx context.Context, in *GetUserChannelReqS, opts ...grpc.CallOption) (*GetUserChannelResS, error)
+	DeleteChannel(ctx context.Context, in *DeleteChannelReqS, opts ...grpc.CallOption) (*SpeakerStatusMessage, error)
+	DownOrUpVolume(ctx context.Context, in *DownOrUpVolumeReqS, opts ...grpc.CallOption) (*DownOrUpVolumeResS, error)
+	PreviousAndNext(ctx context.Context, in *PreviousAndNextReqS, opts ...grpc.CallOption) (*PreviousAndNextRes, error)
 	OnAndOffUserSpeaker(ctx context.Context, in *OnAndOffUserSpeakerReq, opts ...grpc.CallOption) (*OnAndOffUserSpeakerRes, error)
 }
 
@@ -59,7 +59,7 @@ func (c *speakerServiceClient) AddSpeaker(ctx context.Context, in *AddSpeakerReq
 	return out, nil
 }
 
-func (c *speakerServiceClient) AddChannel(ctx context.Context, in *AddChannelReq, opts ...grpc.CallOption) (*SpeakerStatusMessage, error) {
+func (c *speakerServiceClient) AddChannel(ctx context.Context, in *AddChannelReqS, opts ...grpc.CallOption) (*SpeakerStatusMessage, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SpeakerStatusMessage)
 	err := c.cc.Invoke(ctx, SpeakerService_AddChannel_FullMethodName, in, out, cOpts...)
@@ -69,9 +69,9 @@ func (c *speakerServiceClient) AddChannel(ctx context.Context, in *AddChannelReq
 	return out, nil
 }
 
-func (c *speakerServiceClient) GetUserChannel(ctx context.Context, in *GetUserChannelReq, opts ...grpc.CallOption) (*GetUserChannelRes, error) {
+func (c *speakerServiceClient) GetUserChannel(ctx context.Context, in *GetUserChannelReqS, opts ...grpc.CallOption) (*GetUserChannelResS, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetUserChannelRes)
+	out := new(GetUserChannelResS)
 	err := c.cc.Invoke(ctx, SpeakerService_GetUserChannel_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -79,7 +79,7 @@ func (c *speakerServiceClient) GetUserChannel(ctx context.Context, in *GetUserCh
 	return out, nil
 }
 
-func (c *speakerServiceClient) DeleteChannel(ctx context.Context, in *DeleteChannelReq, opts ...grpc.CallOption) (*SpeakerStatusMessage, error) {
+func (c *speakerServiceClient) DeleteChannel(ctx context.Context, in *DeleteChannelReqS, opts ...grpc.CallOption) (*SpeakerStatusMessage, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SpeakerStatusMessage)
 	err := c.cc.Invoke(ctx, SpeakerService_DeleteChannel_FullMethodName, in, out, cOpts...)
@@ -89,9 +89,9 @@ func (c *speakerServiceClient) DeleteChannel(ctx context.Context, in *DeleteChan
 	return out, nil
 }
 
-func (c *speakerServiceClient) DownOrUpVolume(ctx context.Context, in *DownOrUpVolumeReq, opts ...grpc.CallOption) (*DownOrUpVolumeRes, error) {
+func (c *speakerServiceClient) DownOrUpVolume(ctx context.Context, in *DownOrUpVolumeReqS, opts ...grpc.CallOption) (*DownOrUpVolumeResS, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DownOrUpVolumeRes)
+	out := new(DownOrUpVolumeResS)
 	err := c.cc.Invoke(ctx, SpeakerService_DownOrUpVolume_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -99,7 +99,7 @@ func (c *speakerServiceClient) DownOrUpVolume(ctx context.Context, in *DownOrUpV
 	return out, nil
 }
 
-func (c *speakerServiceClient) PreviousAndNext(ctx context.Context, in *PreviousAndNextReq, opts ...grpc.CallOption) (*PreviousAndNextRes, error) {
+func (c *speakerServiceClient) PreviousAndNext(ctx context.Context, in *PreviousAndNextReqS, opts ...grpc.CallOption) (*PreviousAndNextRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(PreviousAndNextRes)
 	err := c.cc.Invoke(ctx, SpeakerService_PreviousAndNext_FullMethodName, in, out, cOpts...)
@@ -124,11 +124,11 @@ func (c *speakerServiceClient) OnAndOffUserSpeaker(ctx context.Context, in *OnAn
 // for forward compatibility
 type SpeakerServiceServer interface {
 	AddSpeaker(context.Context, *AddSpeakerReq) (*SpeakerStatusMessage, error)
-	AddChannel(context.Context, *AddChannelReq) (*SpeakerStatusMessage, error)
-	GetUserChannel(context.Context, *GetUserChannelReq) (*GetUserChannelRes, error)
-	DeleteChannel(context.Context, *DeleteChannelReq) (*SpeakerStatusMessage, error)
-	DownOrUpVolume(context.Context, *DownOrUpVolumeReq) (*DownOrUpVolumeRes, error)
-	PreviousAndNext(context.Context, *PreviousAndNextReq) (*PreviousAndNextRes, error)
+	AddChannel(context.Context, *AddChannelReqS) (*SpeakerStatusMessage, error)
+	GetUserChannel(context.Context, *GetUserChannelReqS) (*GetUserChannelResS, error)
+	DeleteChannel(context.Context, *DeleteChannelReqS) (*SpeakerStatusMessage, error)
+	DownOrUpVolume(context.Context, *DownOrUpVolumeReqS) (*DownOrUpVolumeResS, error)
+	PreviousAndNext(context.Context, *PreviousAndNextReqS) (*PreviousAndNextRes, error)
 	OnAndOffUserSpeaker(context.Context, *OnAndOffUserSpeakerReq) (*OnAndOffUserSpeakerRes, error)
 	mustEmbedUnimplementedSpeakerServiceServer()
 }
@@ -140,19 +140,19 @@ type UnimplementedSpeakerServiceServer struct {
 func (UnimplementedSpeakerServiceServer) AddSpeaker(context.Context, *AddSpeakerReq) (*SpeakerStatusMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddSpeaker not implemented")
 }
-func (UnimplementedSpeakerServiceServer) AddChannel(context.Context, *AddChannelReq) (*SpeakerStatusMessage, error) {
+func (UnimplementedSpeakerServiceServer) AddChannel(context.Context, *AddChannelReqS) (*SpeakerStatusMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddChannel not implemented")
 }
-func (UnimplementedSpeakerServiceServer) GetUserChannel(context.Context, *GetUserChannelReq) (*GetUserChannelRes, error) {
+func (UnimplementedSpeakerServiceServer) GetUserChannel(context.Context, *GetUserChannelReqS) (*GetUserChannelResS, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserChannel not implemented")
 }
-func (UnimplementedSpeakerServiceServer) DeleteChannel(context.Context, *DeleteChannelReq) (*SpeakerStatusMessage, error) {
+func (UnimplementedSpeakerServiceServer) DeleteChannel(context.Context, *DeleteChannelReqS) (*SpeakerStatusMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteChannel not implemented")
 }
-func (UnimplementedSpeakerServiceServer) DownOrUpVolume(context.Context, *DownOrUpVolumeReq) (*DownOrUpVolumeRes, error) {
+func (UnimplementedSpeakerServiceServer) DownOrUpVolume(context.Context, *DownOrUpVolumeReqS) (*DownOrUpVolumeResS, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DownOrUpVolume not implemented")
 }
-func (UnimplementedSpeakerServiceServer) PreviousAndNext(context.Context, *PreviousAndNextReq) (*PreviousAndNextRes, error) {
+func (UnimplementedSpeakerServiceServer) PreviousAndNext(context.Context, *PreviousAndNextReqS) (*PreviousAndNextRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PreviousAndNext not implemented")
 }
 func (UnimplementedSpeakerServiceServer) OnAndOffUserSpeaker(context.Context, *OnAndOffUserSpeakerReq) (*OnAndOffUserSpeakerRes, error) {
@@ -190,7 +190,7 @@ func _SpeakerService_AddSpeaker_Handler(srv interface{}, ctx context.Context, de
 }
 
 func _SpeakerService_AddChannel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddChannelReq)
+	in := new(AddChannelReqS)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -202,13 +202,13 @@ func _SpeakerService_AddChannel_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: SpeakerService_AddChannel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SpeakerServiceServer).AddChannel(ctx, req.(*AddChannelReq))
+		return srv.(SpeakerServiceServer).AddChannel(ctx, req.(*AddChannelReqS))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _SpeakerService_GetUserChannel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserChannelReq)
+	in := new(GetUserChannelReqS)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -220,13 +220,13 @@ func _SpeakerService_GetUserChannel_Handler(srv interface{}, ctx context.Context
 		FullMethod: SpeakerService_GetUserChannel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SpeakerServiceServer).GetUserChannel(ctx, req.(*GetUserChannelReq))
+		return srv.(SpeakerServiceServer).GetUserChannel(ctx, req.(*GetUserChannelReqS))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _SpeakerService_DeleteChannel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteChannelReq)
+	in := new(DeleteChannelReqS)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -238,13 +238,13 @@ func _SpeakerService_DeleteChannel_Handler(srv interface{}, ctx context.Context,
 		FullMethod: SpeakerService_DeleteChannel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SpeakerServiceServer).DeleteChannel(ctx, req.(*DeleteChannelReq))
+		return srv.(SpeakerServiceServer).DeleteChannel(ctx, req.(*DeleteChannelReqS))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _SpeakerService_DownOrUpVolume_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DownOrUpVolumeReq)
+	in := new(DownOrUpVolumeReqS)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -256,13 +256,13 @@ func _SpeakerService_DownOrUpVolume_Handler(srv interface{}, ctx context.Context
 		FullMethod: SpeakerService_DownOrUpVolume_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SpeakerServiceServer).DownOrUpVolume(ctx, req.(*DownOrUpVolumeReq))
+		return srv.(SpeakerServiceServer).DownOrUpVolume(ctx, req.(*DownOrUpVolumeReqS))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _SpeakerService_PreviousAndNext_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PreviousAndNextReq)
+	in := new(PreviousAndNextReqS)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -274,7 +274,7 @@ func _SpeakerService_PreviousAndNext_Handler(srv interface{}, ctx context.Contex
 		FullMethod: SpeakerService_PreviousAndNext_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SpeakerServiceServer).PreviousAndNext(ctx, req.(*PreviousAndNextReq))
+		return srv.(SpeakerServiceServer).PreviousAndNext(ctx, req.(*PreviousAndNextReqS))
 	}
 	return interceptor(ctx, in, info, handler)
 }
